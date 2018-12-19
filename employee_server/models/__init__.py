@@ -5,3 +5,4 @@ from .senior_manager import *
 from .specialist import *
 from .top_manager import *
 from .subdivision import *
+from .stockholder import *
