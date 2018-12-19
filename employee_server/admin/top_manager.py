@@ -10,15 +10,15 @@ class TopManagerAdminForm(BaseForm):
         exclude = BaseForm.Meta.exclude
 
 class  TopManagerInline(admin.TabularInline):
-    model = TopManager.sub_manager.through
+    model = TopManager.senior_manager.through
 
 @admin.register(models.TopManager)
 class TopManagerAdmin(admin.ModelAdmin):
     form = TopManagerAdminForm
     list_display = ('last_name', 'first_name', 'patronymic_name', 'position', 'employment_date', 'salary', 
-                    'get_sub_manager', )
+                    'get_senior_manager', )
 
     inlines = (
         TopManagerInline,
     )
-    exclude = ('sub_manager',)
+    exclude = ('senior_manager',)

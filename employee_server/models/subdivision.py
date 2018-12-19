@@ -1,7 +1,7 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 
-class Developer(MPTTModel):
+class Subdivision(MPTTModel):
     name = models.CharField(max_length=50, unique=True)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     # slug = models.SlugField(max_length=250)
@@ -11,7 +11,7 @@ class Developer(MPTTModel):
 
     class Meta:
         unique_together = (('parent',))
-        verbose_name_plural = 'staffs'
+        verbose_name_plural = 'Subdivision'
 
     def __str__(self):
         return self.name

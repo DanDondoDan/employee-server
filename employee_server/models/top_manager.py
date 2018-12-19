@@ -1,6 +1,7 @@
 from django.db import models
 from employee_server.models.base import BaseModel
-from employee_server.models.subdivision_manager import SubdivisionManager
+from employee_server.models.senior_manager import SeniorManager
+from mptt.models import MPTTModel, TreeForeignKey
 
 
 class TopManager(BaseModel):
@@ -16,7 +17,9 @@ class TopManager(BaseModel):
     employment_date = models.DateField(default=None)
     salary = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 
-    sub_manager = models.ManyToManyField(SubdivisionManager, related_name='sub_manager')
+    senior_manager = models.ManyToManyField(SeniorManager, related_name='senior_manager')
+
+    department = TreeForeignKey('Subdivision', null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return "{} {} {} {} {} {} ({})".format(
@@ -29,10 +32,10 @@ class TopManager(BaseModel):
             self.user.email
             )
 
-    def get_sub_manager(self):
-        return ",".join([str(p) for p in self.sub_manager.all()])
+    def get_senior_manager(self):
+        return ",".join([str(p) for p in self.senior_manager.all()])
 
-    get_sub_manager.short_description = "Subdivision Manager"
+    get_senior_manager.short_description = "Senior Manager"
 
     class Meta:
         verbose_name = 'Top Manager'

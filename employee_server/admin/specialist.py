@@ -5,14 +5,14 @@ from employee_server.admin.base import BaseForm
 
 
 
-class EmployeeAdminForm(BaseForm):
+class SpecialistAdminForm(BaseForm):
     class Meta:
-        model = models.Employee
+        model = models.Specialist
         exclude = BaseForm.Meta.exclude
 
 
-@admin.register(models.Employee)
-class EmployeeAdmin(admin.ModelAdmin):
-    form = EmployeeAdminForm
+@admin.register(models.Specialist)
+class SpecialistAdmin(admin.ModelAdmin):
+    form = SpecialistAdminForm
     list_display = ('last_name', 'first_name', 'patronymic_name', 'position', 'employment_date', 'salary', )
                     

@@ -1,9 +1,8 @@
 from django.db import models
 from employee_server.models.base import BaseModel
-from employee_server.models.top_manager import TopManager
+from mptt.models import MPTTModel, TreeForeignKey
 
-
-class Stockholder(BaseModel):
+class Specialist(BaseModel):
 
     user = models.OneToOneField('User', on_delete=models.CASCADE,
                                 related_name='%(class)s',
@@ -16,7 +15,8 @@ class Stockholder(BaseModel):
     employment_date = models.DateField(default=None)
     salary = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 
-    top_manager = models.ManyToManyField(TopManager, related_name='top_manager')
+    department = TreeForeignKey('Subdivision', null=True, blank=True, on_delete=models.CASCADE)
+    # slug = models.SlugField(max_length=250)
 
     def __str__(self):
         return "{} {} {} {} {} {} ({})".format(
@@ -29,11 +29,6 @@ class Stockholder(BaseModel):
             self.user.email
             )
 
-    def get_top_manager(self):
-        return ",".join([str(p) for p in self.top_manager.all()])
-
-    get_top_manager.short_description = "Top Manager"
-
     class Meta:
-        verbose_name = 'Stockholder'
-        verbose_name_plural = 'Stockholders'
+        verbose_name = 'Specialist'
+        verbose_name_plural = 'Specialists'
