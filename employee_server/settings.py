@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     
     'employee_server',
     'mptt',
+    'django_seed',
 ]
 
 MIDDLEWARE = [
