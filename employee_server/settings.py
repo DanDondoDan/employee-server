@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'employee_server',
     'mptt',
     'django_seed',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,9 @@ try:
     from local_settings import *
 except ImportError:
     pass
+
+SERVICE_VARS = {
+    'router_suffix': 'Router',
+    'viewset_suffix': 'ViewSet',
+    'view_suffix': 'View'
+}

@@ -28,7 +28,8 @@ class GeneralManager(BaseModel):
             self.patronymic_name,
             self.position,
             self.employment_date,
-            self.salary, 
+            self.salary,
+            self.department, 
             self.user.email
             )
 
