@@ -2,25 +2,25 @@ from rest_framework import serializers
 from employee_server import models
 
 
-class SpecialistPublicSerializer(serializers.ModelSerializer):
+class TopManagerPublicSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.Specialist
+        model = models.TopManager
         fields = ('first_name', 'last_name', 'patronymic_name', 'position',)
 
 
-class SpecialistPrivateSerializer(SpecialistPublicSerializer):
+class TopManagerPrivateSerializer(TopManagerPublicSerializer):
 
     email = serializers.SerializerMethodField()
 
     class Meta:
-        model = models.Specialist
-        fields = SpecialistPublicSerializer.Meta.fields + (
+        model = models.TopManager
+        fields = TopManagerPublicSerializer.Meta.fields + (
             'email',
             'employment_date',
             'salary',
             'department',
             )
 
-    def get_email(self, obj: models.Specialist):
+    def get_email(self, obj: models.TopManager):
         return obj.user.email

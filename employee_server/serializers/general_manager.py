@@ -14,7 +14,9 @@ class GeneralManagerPrivateSerializer(GeneralManagerPublicSerializer):
     email = serializers.SerializerMethodField()
 
     class Meta:
+        model = models.GeneralManager
         fields = GeneralManagerPublicSerializer.Meta.fields + (
+            'email',
             'employment_date',
             'salary',
             'department',
