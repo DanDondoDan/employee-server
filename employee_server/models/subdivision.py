@@ -19,11 +19,6 @@ class Subdivision(MPTTModel):
     class Meta:
         unique_together = (('slug', 'parent',))
         verbose_name_plural = 'Subdivision'
-
-    def get_full_name(self):
-        names = self.get_ancestors(include_self=True).values('name')
-        full_name = ' - '.join(map(lambda x: x['name'], names))
-        return full_name
     
     def get_specialist_count(self):
         ids = self.get_descendants(include_self=True)

@@ -3,7 +3,7 @@ from employee_server import models
 
 class RecursiveField(serializers.Serializer):
     def to_native(self, value):
-        return self.parent.to_native(value)
+        return self.SubdivisionSerializer(value, context={"parent": self.parent.object, "parent_serializer": self.parent})
 
 
 class SubdivisionSerializer(serializers.ModelSerializer):
@@ -30,3 +30,15 @@ class SubdivisionSerializer(serializers.ModelSerializer):
                   'low_level_manager_count',
                   'specialist_count',
                    )
+
+    def get_full_name(self, obj):
+        name = obj.name
+
+        if "parent" in self.context:
+            parent = self.context["parent"]
+
+            parent_name = self.context["parent_serializer"].get_full_name(parent)
+
+            name = "%s - %s" % (parent_name, name, )
+
+        return name
