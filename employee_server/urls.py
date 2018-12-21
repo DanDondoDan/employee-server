@@ -21,5 +21,6 @@ from employee_server import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url('^api/v1/', include(router.urls)),
+    url('^api/', include(router.urls)),
+    # url('^subdivision/', views.SubdivisionViewSet)
 ]

@@ -15,6 +15,7 @@ _VIEWS = (
     views.SeniorManagerViewSet,
     views.TopManagerViewSet,
     views.StockholderViewSet,
+    views.SubdivisionViewSet,
 )
 
 
