@@ -11,19 +11,19 @@ from employee_server.models.stockholder import Stockholder
 class Subdivision(MPTTModel):
     name = models.CharField(max_length=50, unique=True)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
-    slug = models.SlugField(default=None)
+    # slug = models.SlugField(default=None)
 
     class MPTTMeta:
         order_insertion_by = ['name']
 
     class Meta:
-        unique_together = (('slug', 'parent',))
+        unique_together = (('parent',))
         verbose_name_plural = 'Subdivision'
     
     def get_specialist_count(self):
         ids = self.get_descendants(include_self=True)
         return Specialist.objects.filter(department__in=ids).count()
-    
+        
     def get_low_level_manager_count(self):
         ids = self.get_descendants(include_self=True)
         return LowLevelManager.objects.filter(department__in=ids).count()

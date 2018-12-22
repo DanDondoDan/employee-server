@@ -17,7 +17,7 @@ class SeniorManager(BaseModel):
     employment_date = models.DateField(default=None)
     salary = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 
-    low_manager = models.ManyToManyField(LowLevelManager, related_name='low_level_manager')
+    low_manager = models.ForeignKey(LowLevelManager, on_delete=models.CASCADE)
 
     department = TreeForeignKey('Subdivision', null=True, blank=True, on_delete=models.CASCADE)
 
@@ -32,10 +32,10 @@ class SeniorManager(BaseModel):
             self.user.email
             )
 
-    def get_manager(self):
-        return ",".join([str(p) for p in self.low_manager.all()])
+    # def get_manager(self):
+        # return ",".join([str(p) for p in self.low_manager.all()])
 
-    get_manager.short_description = "Low Level Manager"
+    # get_manager.short_description = "Low Level Manager"
 
     class Meta:
         verbose_name = 'Senior Manager'

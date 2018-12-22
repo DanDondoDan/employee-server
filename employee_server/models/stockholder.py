@@ -17,7 +17,7 @@ class Stockholder(BaseModel):
     employment_date = models.DateField(default=None)
     salary = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 
-    general_manager = models.ManyToManyField(GeneralManager, related_name='general_manager')
+    general_manager = models.ForeignKey(GeneralManager, on_delete=models.CASCADE)
 
     department = TreeForeignKey('Subdivision', null=True, blank=True, on_delete=models.CASCADE)
 
@@ -32,10 +32,10 @@ class Stockholder(BaseModel):
             self.user.email
             )
 
-    def get_general_manager(self):
-        return ",".join([str(p) for p in self.general_manager.all()])
+    # def get_general_manager(self):
+        # return ",".join([str(p) for p in self.general_manager.all()])
 
-    get_general_manager.short_description = "General Manager"
+    # get_general_manager.short_description = "General Manager"
 
     class Meta:
         verbose_name = 'Stockholder'

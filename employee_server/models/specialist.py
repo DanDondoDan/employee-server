@@ -16,7 +16,7 @@ class Specialist(BaseModel):
     salary = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 
     department = TreeForeignKey('Subdivision', null=True, blank=True, on_delete=models.CASCADE)
-    slug = models.SlugField(unique=True, default=None)
+    # slug = models.SlugField(unique=True, default=None)
 
     def __str__(self):
         return "{} {} {} {} {} {} ({})".format(
