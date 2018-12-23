@@ -9,43 +9,43 @@ from employee_server.models.stockholder import Stockholder
 
 
 class Subdivision(MPTTModel):
-    name = models.CharField(max_length=50, unique=True)
-    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
-    # slug = models.SlugField(default=None)
+    
+    id = models.CharField(
+        max_length=32,
+        primary_key=True,
+        unique=True,
+        verbose_name='ID',
+        help_text='Forsquare ID of the subdivision.',
+    )
+    name = models.CharField(max_length=255, verbose_name= 'Name')
 
-    class MPTTMeta:
-        order_insertion_by = ['name']
+    parent = TreeForeignKey(
+        'self',
+        blank=True,
+        null=True,
+        related_name='children',
+        db_index=True,
+        verbose_name='Parent subdivision',
+        help_text='Parent subdivision.',
+        on_delete=models.CASCADE,
+    )
+    
+    plural_name = models.CharField(
+        max_length=255,
+        verbose_name='Plural name'
+    )
 
     class Meta:
         unique_together = (('parent',))
+        verbose_name = 'Subdivision'
         verbose_name_plural = 'Subdivision'
+
+    class MPTTMeta:
+        order_insertion_by = ['name']
     
     def get_specialist_count(self):
         ids = self.get_descendants(include_self=True)
         return Specialist.objects.filter(department__in=ids).count()
-        
-    def get_low_level_manager_count(self):
-        ids = self.get_descendants(include_self=True)
-        return LowLevelManager.objects.filter(department__in=ids).count()
-
-    def get_top_manager_count(self):
-        ids = self.get_descendants(include_self=True)
-        return TopManager.objects.filter(department__in=ids).count()
-    
-    def get_senior_manager_count(self):
-        ids = self.get_descendants(include_self=True)
-        return SeniorManager.objects.filter(department__in=ids).count()
-
-    def get_general_manager_count(self):
-        ids = self.get_descendants(include_self=True)
-        return GeneralManager.objects.filter(department__in=ids).count()
-    
-    def get_stockholder_count(self):
-        ids = self.get_descendants(include_self=True)
-        return GeneralManager.objects.filter(department__in=ids).count()
-
-
-    
 
     def __str__(self):
         return self.name
