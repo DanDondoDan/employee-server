@@ -14,8 +14,16 @@ class SubdivisionTreeSerializer(serializers.ModelSerializer):
         fields = ('id', 
                   'name',
                   'plural_name',
-                  'children',
-                  
+                  'children',                  
                   'specialist_count',
                   )
            
+class SubDetail(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Subdivision
+        fields = ('id', 
+                  'name',
+                  'plural_name',
+                  'children',                  
+                  )

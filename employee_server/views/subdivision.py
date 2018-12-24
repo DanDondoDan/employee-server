@@ -6,7 +6,7 @@ from mptt.templatetags.mptt_tags import cache_tree_children
 from rest_framework.response import Response
 from rest_framework import mixins
 from rest_framework import decorators
-
+from rest_framework import generics
 
 class SubdivisionViewSet(
         mixins.ListModelMixin,
@@ -23,3 +23,7 @@ class SubdivisionViewSet(
         categories = Subdivision.objects.filter(level=0).all()
         serializer = serializers.SubdivisionTreeSerializer(categories, many=True)
         return Response(data=serializer.data)
+
+class SubDetail(generics.RetrieveAPIView):
+    queryset = Subdivision.objects.all()
+    serializer_class = serializers.SubDetail
