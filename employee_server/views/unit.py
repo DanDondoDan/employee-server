@@ -1,12 +1,13 @@
 from rest_framework import viewsets as views
 from employee_server import models
 from employee_server import serializers
-from employee_server.models.subdivision import Subdivision
+# from employee_server.models.subdivision import Subdivision
 from mptt.templatetags.mptt_tags import cache_tree_children
 from rest_framework.response import Response
 from rest_framework import mixins
 from rest_framework import decorators
 from rest_framework import generics
+from employee_server.models.unit import Unit
 
 from django.shortcuts import get_object_or_404
 from oscar.core.loading import get_model
@@ -17,35 +18,39 @@ class SubdivisionViewSet(
         views.GenericViewSet
     ):
     
-    queryset = Subdivision.objects.all()
-    serializer_class = serializers.SubdivisionTreeSerializer
+    queryset = Unit.objects.all()
+    serializer_class = serializers.UnitTreeSerializer
     pagination_class = None
 
     @decorators.list_route(methods=['get'])
     def tree(self, *args, **kwargs):
     
-        categories = Subdivision.objects.filter(level=0).all()
-        serializer = serializers.SubdivisionTreeSerializer(categories, many=True)
+        categories = Unit.objects.filter(level=0).all()
+        serializer = serializers.UnitTreeSerializer(categories, many=True)
         return Response(data=serializer.data)
+        
 
-class SubDetail(generics.RetrieveAPIView):
-    queryset = Subdivision.objects.all()
-    serializer_class = serializers.SubDetail
+class UnitDetail(generics.RetrieveAPIView):
+    queryset = Unit.objects.all()
+    serializer_class = serializers.UnitDetail
+  
 
 
 ##############################################################
-Subdivision = get_model('employee_server', 'Subdivision')
-Specialist = get_model('employee_server', 'Specialist')
+Unit = get_model('employee_server', 'Unit')
+Person = get_model('employee_server', 'Person')
 
+class UnitEmployeerView(generics.ListAPIView):
+    serializer_class = serializers.PersonPrivateSerializer
 
-class SubEmployeerView(generics.ListAPIView):
-    serializer_class = serializers.SpecialistPrivateSerializer
-
+    
     def get_queryset(self):
         sub_id = self.kwargs.get('pk', None)
         if sub_id is not None:
-            subdiv = get_object_or_404(Subdivision, id=sub_id)
-            return Specialist.objects.filter(
-                department__in=subdiv.id).all()
+            subdiv = get_object_or_404(Unit, id=sub_id)
+            return Person.objects.filter(
+                unit__in=subdiv.id).all()
         else:
-            return Specialist.objects.none()
+            return Person.objects.none()
+    
+        

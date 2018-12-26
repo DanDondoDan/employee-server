@@ -3,27 +3,30 @@ from employee_server import models
 from rest_framework_recursive.fields import RecursiveField
 
 
-class SubdivisionTreeSerializer(serializers.ModelSerializer):
+class UnitTreeSerializer(serializers.ModelSerializer):
     
     children = RecursiveField(many=True)
-    specialist_count = serializers.ReadOnlyField(source='get_specialist_count')
+    unit_count = serializers.ReadOnlyField(source='get_person_count')
    
 
     class Meta:
-        model = models.Subdivision
+        model = models.Unit
         fields = ('id', 
                   'name',
                   'plural_name',
                   'children',                  
-                  'specialist_count',
+                  'unit_count',
                   )
+    
            
-class SubDetail(serializers.ModelSerializer):
+class UnitDetail(serializers.ModelSerializer):
 
     class Meta:
-        model = models.Subdivision
+        model = models.Unit
         fields = ('id', 
                   'name',
                   'plural_name',
                   'children',                  
                   )
+    
+    

@@ -22,8 +22,7 @@ from employee_server import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     url('^api/', include(router.urls)),
-    url(r'^sub-detail/(?P<pk>\d+)/$',
-        views.SubDetail.as_view()),
-    url(r'^sub/(?P<pk>[0-9]+)/employeers/$', views.SubEmployeerView.as_view()),
-    # url(r'^sub/employeers/$', views.SubEmployeerView.as_view()),
+    url(r'^unit-detail/(?P<pk>\d+)/employeers/$',
+        views.UnitDetail.as_view()),
+    url(r'^sub/(?P<pk>[0-9]+)/employeers/$', views.UnitEmployeerView.as_view()),
 ]
