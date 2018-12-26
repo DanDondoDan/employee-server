@@ -13,7 +13,7 @@ from django.shortcuts import get_object_or_404
 from oscar.core.loading import get_model
 from rest_framework import generics
 
-class SubdivisionViewSet(
+class UnitViewSet(
         mixins.ListModelMixin,
         views.GenericViewSet
     ):

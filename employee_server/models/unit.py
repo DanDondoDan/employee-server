@@ -1,7 +1,9 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from employee_server.models.person import Person
-
+from django.shortcuts import get_object_or_404
+from employee_server.models.position import Position
+from rest_framework.response import Response
 
 class Unit(MPTTModel):
     
@@ -41,6 +43,7 @@ class Unit(MPTTModel):
     def get_person_count(self):
         ids = self.get_descendants(include_self=True)
         return Person.objects.filter(unit__in=ids).count()
-
+    
+    
     def __str__(self):
         return self.name

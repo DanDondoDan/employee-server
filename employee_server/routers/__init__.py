@@ -10,12 +10,7 @@ from employee_server import views
 
 _VIEWS = (
     views.PersonViewSet,
-    # views.SpecialistViewSet,
-    # views.LowLevelManagerViewSet,
-    # views.SeniorManagerViewSet,
-    # views.TopManagerViewSet,
-    # views.StockholderViewSet,
-    views.SubdivisionViewSet,
+    views.UnitViewSet,
 )
 
 
