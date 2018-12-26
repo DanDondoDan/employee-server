@@ -11,6 +11,7 @@ from employee_server import views
 _VIEWS = (
     views.PersonViewSet,
     views.UnitViewSet,
+    views.SearchPersonViewSet,
 )
 
 
