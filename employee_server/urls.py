@@ -18,6 +18,8 @@ from django.urls import path
 from django.conf.urls import url, include
 from employee_server.routers import router
 from employee_server import views
+from employee_server import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +27,6 @@ urlpatterns = [
     url(r'^unit-detail/(?P<pk>\d+)/employeers/$',
         views.UnitDetail.as_view()),
     url(r'^sub/(?P<pk>[0-9]+)/employeers/$', views.UnitEmployeerView.as_view()),
-]
+    url(r'^sign-up/', views.CustomUser.as_view()),
+    path('rest-auth/', include('rest_auth.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

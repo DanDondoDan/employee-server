@@ -46,6 +46,13 @@ INSTALLED_APPS = [
     'django_seed',
     'rest_framework',
     'django_filters',
+
+    'rest_framework.authtoken',
+    'rest_auth',
+    'allauth',
+    'allauth.account',
+    'django.contrib.sites',
+    'timed_auth_token',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +64,18 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+#django-allauth registraion settings
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_LOGOUT_ON_GET = False
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
+ACCOUNT_USERNAME_MIN_LENGTH = 5
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'email'
+ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login/"
+
+SITE_ID = 1
 
 ROOT_URLCONF = 'employee_server.urls'
 
@@ -88,11 +107,21 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-"""
+
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        # 'frank.views.authentication.ExpiringTokenAuthentication',
+        'timed_auth_token.authentication.TimedAuthTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', ),
+
 }
-"""
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -147,3 +176,6 @@ SERVICE_VARS = {
     'viewset_suffix': 'ViewSet',
     'view_suffix': 'View'
 }
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
