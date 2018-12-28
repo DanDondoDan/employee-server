@@ -1,7 +1,7 @@
 __all___ = ['router']
 
 
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import DefaultRouter, SimpleRouter
 
 
 from employee_server.settings import SERVICE_VARS as cfg
@@ -9,7 +9,7 @@ from employee_server import views
 
 
 _VIEWS = (
-    views.PersonViewSet,
+    # views.PersonViewSet,
     views.UnitViewSet,
     views.SearchPersonViewSet,
 )
@@ -17,6 +17,7 @@ _VIEWS = (
 
 
 router = DefaultRouter()
+# routerMy = MyRouter()
 
 
 for rt in _VIEWS:

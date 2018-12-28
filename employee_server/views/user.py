@@ -9,6 +9,9 @@ from django.conf import settings
 import datetime
 from django.utils import timezone
 from employee_server.settings import TOKEN_LIFETIME
+from rest_auth.views import LoginView as DrfLoginView
+import json
+from employee_server.models.user import User
 
 
 class CustomUser(views.APIView):
@@ -38,3 +41,34 @@ class CustomUser(views.APIView):
                     token.created = datetime.datetime.utcnow() + timedelta(hours=TOKEN_LIFETIME)
                     token.save()
         return Response({'token': token.key, 'id': token.user_id})
+
+class LoginView(DrfLoginView):
+    
+    def dispatch(self, *args, **kwargs):
+        request = args[0]
+        email, password = None, None
+        if request.method == 'POST':
+            body = json.loads(request.body.decode())
+            email = body['email']
+            password = body['password']
+
+        a = super().dispatch(*args, **kwargs)
+
+        if a.status_code != 200 and request.method == 'POST' and email and password.is_valid():
+            
+            u = User.objects.filter(email=email).first()
+
+            a.status_code = 200
+            a.data = serializers.UserPrivateSerializer(u).data
+
+        return a
+
+    def get_response(self):
+        serializer_class = serializers.UserPrivateSerializer
+
+        serializer = serializer_class(
+            instance=self.user,
+            context={'request': self.request}
+        )
+
+        return Response(serializer.data)

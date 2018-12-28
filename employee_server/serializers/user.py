@@ -26,6 +26,13 @@ class UserPublicSerializer(serializers.ModelSerializer):
         model = models.User
         fields = ('email', 'phone', 'birth', )
 
+class UserPrivateSerializer(UserPublicSerializer):
+    token = serializers.ReadOnlyField(source='auth_token.key')
+
+    class Meta:
+        model = models.User
+        fields = UserPublicSerializer.Meta.fields + ('token',)
+
 
 class UserCreateSerializer(UserPublicSerializer):
     password = serializers.CharField(validators=[PasswordValidator()], allow_blank=True)
