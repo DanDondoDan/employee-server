@@ -20,6 +20,8 @@ class Person(BaseModel):
     salary = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
     chief = models.ForeignKey('self', blank='True', null='True', on_delete=models.CASCADE)
     unit = TreeForeignKey('Unit', null=True, blank=True, on_delete=models.CASCADE)
+
+    photo = models.ImageField(blank=True, null=True, default=None, upload_to='media')
    
     def __str__(self):
         return "{} {} {} {} {} {} {} {} ({})".format(
@@ -30,7 +32,8 @@ class Person(BaseModel):
             self.employment_date,
             self.salary,
             self.chief,
-            self.unit, 
+            self.unit,
+            self.photo, 
             self.user.email
             )
 

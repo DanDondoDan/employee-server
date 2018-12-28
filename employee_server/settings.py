@@ -30,7 +30,7 @@ TOKEN_LIFETIME = ENV.TOKEN_DURATION_HOURS
 TOKEN_LIFETIME = 24
 ALLOWED_HOSTS = []
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'  # home page
 
 # Application definition
 
@@ -120,7 +120,7 @@ REST_FRAMEWORK = {
     ),
     
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated', ),
+        'rest_framework.permissions.IsAuthenticated', ), # Globally for All project
 
 }
 
