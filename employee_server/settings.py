@@ -74,7 +74,7 @@ ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 ACCOUNT_USERNAME_MIN_LENGTH = 5
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'email'
-ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login/"
+ACCOUNT_LOGOUT_REDIRECT_URL = "rest-auth/login/"
 
 SITE_ID = 1
 
@@ -161,6 +161,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # default is 10 pixels
 MPTT_ADMIN_LEVEL_INDENT = 5

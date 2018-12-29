@@ -33,6 +33,8 @@ urlpatterns = [
     url(r'rest-auth/', include('rest_auth.urls')),
     url(r'^detail-person/', views.PersonViewSet.as_view({'get': 'list'})),
     url(r'^rest-auth/login/', views.LoginView.as_view(), name='rest_login'),
+    url(r'^list/person/create', views.ListCreatePersonView.as_view()),
+    path('person/<int:pk>/', views.PersonDetailView.as_view(), name="person-detail"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # http://qaru.site/questions/15634515/update-and-delete-in-same-api-view-without-passing-id-in-url
