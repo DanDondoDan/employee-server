@@ -11,7 +11,7 @@
 .env
 .venv
 
-staticfiles/
+# staticfiles/
 redis-stable/
 *.log
 celerybeat-schedule
