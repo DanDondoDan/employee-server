@@ -2,21 +2,12 @@ from rest_framework import viewsets as views
 from rest_framework import status
 from employee_server import models
 from employee_server import serializers
-
-from django_filters import rest_framework as filters
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import mixins
 from rest_framework.response import Response
 from rest_framework import generics
-from rest_framework import permissions
 from employee_server.decorators.decorators import validate_request_data
 
-class PersonViewSet(views.ModelViewSet):
-    queryset = models.Person.objects.all()
-    serializer_class = serializers.PersonPrivateSerializer
-
-    
 
 class SearchPersonViewSet(views.ModelViewSet):
 
@@ -36,39 +27,11 @@ class SearchPersonViewSet(views.ModelViewSet):
                       'chief',
                       'unit',
                       )
-    
+
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields = __basic_fields
     search_fields = __basic_fields
 
-################################################################################
-class ListCreatePersonView(generics.ListCreateAPIView):
-    """
-    GET person/
-    POST person/
-    """
-    queryset = models.Person.objects.all()
-    serializer_class = serializers.PersonPrivateSerializer
-    permission_classes = (permissions.IsAuthenticated,)
-
-    @validate_request_data
-    def post(self, request, *args, **kwargs):
-        pers = Person.objects.create(
-            last_name=request.data["last_name"],
-            first_name=request.data["first_name"],
-            middle_name=request.data["middle_name"],
-            position=request.data["position"],
-            employment_date=request.data["employment_date"],
-            salary=request.data["salary"],
-            chief=request.data["chief"],
-            unit=request.data["unit"],
-            photo=request.data["photo"],
-            email=request.data["email"],
-        )
-        return Response(
-            data=serializers.PersonPrivateSerializer(pers).data,
-            status=status.HTTP_201_CREATED
-        )
 
 class PersonDetailView(generics.RetrieveUpdateDestroyAPIView):
     """
@@ -118,11 +81,3 @@ class PersonDetailView(generics.RetrieveUpdateDestroyAPIView):
                 },
                 status=status.HTTP_404_NOT_FOUND
             )
-
-
-
-
-
-
-    
-    

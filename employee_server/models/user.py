@@ -22,8 +22,9 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
 class User(AbstractUser, BaseModel):
-    
+
     objects = UserManager()
 
     username = None

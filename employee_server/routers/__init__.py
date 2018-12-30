@@ -15,9 +15,7 @@ _VIEWS = (
 )
 
 
-
 router = DefaultRouter()
-# routerMy = MyRouter()
 
 
 for rt in _VIEWS:

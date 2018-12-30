@@ -3,8 +3,6 @@ from employee_server import models
 from employee_server.admin.base import BaseForm
 
 
-
-
 class PositionAdminForm(BaseForm):
     class Meta:
         model = models.Position

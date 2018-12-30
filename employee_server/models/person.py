@@ -1,6 +1,6 @@
 from django.db import models
 from employee_server.models.base import BaseModel
-from mptt.models import MPTTModel, TreeForeignKey
+from mptt.models import TreeForeignKey
 from employee_server.models.position import Position
 
 
@@ -22,25 +22,20 @@ class Person(BaseModel):
     unit = TreeForeignKey('Unit', null=True, blank=True, on_delete=models.CASCADE)
 
     photo = models.ImageField(blank=True, null=True, default=None, upload_to='media')
-   
+
     def __str__(self):
         return "{} {} {} {} {} {} {} {} ({})".format(
-            self.last_name, 
-            self.first_name, 
+            self.last_name,
+            self.first_name,
             self.middle_name,
             self.position,
             self.employment_date,
             self.salary,
             self.chief,
             self.unit,
-            self.photo, 
+            self.photo,
             self.user.email
             )
-
-    # def get_positions(self):
-        # return ",".join([str(p) for p in self.position.all()])
-
-    # get_positions.short_description = "Positions"
 
     class Meta:
         verbose_name = 'Person'

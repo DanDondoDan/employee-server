@@ -3,8 +3,6 @@ from employee_server import models
 from employee_server.admin.base import BaseForm
 
 
-
-
 class PersonAdminForm(BaseForm):
     class Meta:
         model = models.Person
@@ -24,4 +22,3 @@ class PersonAdmin(admin.ModelAdmin):
                     'unit',
                     'photo',
                     )
-                    

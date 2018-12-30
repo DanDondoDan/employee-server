@@ -11,7 +11,6 @@ class PersonPublicSerializer(serializers.ModelSerializer):
                   'middle_name',
                   'position',
                   )
-        
 
 
 class PersonPrivateSerializer(PersonPublicSerializer):
@@ -30,5 +29,3 @@ class PersonPrivateSerializer(PersonPublicSerializer):
 
     def get_email(self, obj: models.Person):
         return obj.user.email
-        
-        
