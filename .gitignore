@@ -5,7 +5,7 @@
 *.pyo
 .vscode
 
-*.sqlite3
+# *.sqlite3
 *.sqlite3-journal
 *.?env
 .env
@@ -25,6 +25,6 @@ _templates
 .tox
 .pytest_cache
 
-local_settings.py
+# local_settings.py
 
 venv/*

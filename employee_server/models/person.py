@@ -1,15 +1,10 @@
 from django.db import models
-from employee_server.models.base import BaseModel
 from mptt.models import TreeForeignKey
 from employee_server.models.position import Position
 
 
-class Person(BaseModel):
-
-    user = models.OneToOneField('User', on_delete=models.CASCADE,
-                                related_name='%(class)s',
-                                related_query_name='%(class)s'
-                                )
+class Person(models.Model):
+    
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     middle_name = models.CharField(max_length=100)
@@ -34,7 +29,6 @@ class Person(BaseModel):
             self.chief,
             self.unit,
             self.photo,
-            self.user.email
             )
 
     class Meta:

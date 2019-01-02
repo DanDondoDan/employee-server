@@ -1,8 +1,7 @@
 from django.db import models
-from employee_server.models.base import BaseModel
 
 
-class Position(BaseModel):
+class Position(models.Model):
 
     position = models.CharField(max_length=100)
 

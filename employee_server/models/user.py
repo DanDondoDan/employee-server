@@ -28,10 +28,10 @@ class User(AbstractUser, BaseModel):
     objects = UserManager()
 
     username = None
-
+    
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
-    birth = models.DateField(null=True, blank=True)
+    birth = models.DateField(null=True, blank=True )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
